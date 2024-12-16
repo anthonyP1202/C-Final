@@ -1,0 +1,68 @@
+-- Install 
+git pull 
+open the project using visual studio
+press the > button at the top
+
+-- Setup 
+when the game first launch they will ask you the link to a database you can use SQL server and SQL server manager to set up a DB
+
+DB creation script :  
+ 
+CREATE DATABASE ExerciceMonster; 
+GO 
+USE ExerciceMonster; 
+GO 
+CREATE TABLE Login ( 
+ID INT PRIMARY KEY IDENTITY(1,1), 
+Username NVARCHAR(50) NOT NULL, 
+PasswordHash NVARCHAR(255) NOT NULL 
+);  
+CREATE TABLE Player ( 
+ID INT PRIMARY KEY IDENTITY(1,1), 
+Name NVARCHAR(50) NOT NULL, 
+LoginID INT, 
+FOREIGN KEY (LoginID) REFERENCES Login(ID) 
+);
+CREATE TABLE Monster ( 
+ID INT PRIMARY KEY IDENTITY(1,1), 
+Name NVARCHAR(50) NOT NULL, 
+Health INT NOT NULL 
+ImageURL NVARCHAR(255) NULL; 
+); 
+CREATE TABLE Spell ( 
+ID INT PRIMARY KEY IDENTITY(1,1), 
+Name NVARCHAR(50) NOT NULL, 
+Damage INT NOT NULL, 
+Description NVARCHAR(MAX) 
+); 
+CREATE TABLE PlayerMonster ( 
+PlayerID INT NOT NULL, 
+MonsterID INT NOT NULL, 
+PRIMARY KEY (PlayerID, MonsterID), 
+FOREIGN KEY (PlayerID) REFERENCES Player(ID), 
+FOREIGN KEY (MonsterID) REFERENCES Monster(ID) 
+);
+CREATE TABLE MonsterSpell ( 
+MonsterID INT NOT NULL, 
+SpellID INT NOT NULL, 
+PRIMARY KEY (MonsterID, SpellID), 
+FOREIGN KEY (MonsterID) REFERENCES Monster(ID), 
+FOREIGN KEY (SpellID) REFERENCES Spell(ID) 
+);
+
+mind that the file only has one \
+
+-- feature 
+-forced
+join the db (starting page)
+create and connect to an account with a hashed password in the db
+
+-options 
+1) pokemenon allow you to see the pokemenon in the game to 
+- pick the one you want to play 
+- go see more detail (we recomand swinub since it has the highest attack move ice fang) you can also pick the starting pokemenon from here
+2) spell allows you to see all spell in the game
+- allow you to see details of the spell
+- allow you to see a list of pokemenon with a specific spell and pick it has a starter going to see the detail and then going back will remove the filter
+3) play allows you to play the game (the enemy health is to show that it increase with the score)
+it has a score and the option to use each spell however there is no balance whatsoever and doing any other move than the highest damage one is entirely pointless 

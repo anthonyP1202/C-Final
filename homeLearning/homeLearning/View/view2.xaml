@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="homeLearning.View.view2"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:homeLearning.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <Border Background="Green"></Border>
+        <StackPanel>
+            <TextBlock Text="Pokemenon it's legaly distinct" FontSize="20" HorizontalAlignment="Center" Foreground="DarkRed" FontWeight="Bold" Margin="0,50,0,0"></TextBlock>
+            <Button Command="{Binding switchToPokemon}"  Content="Pokemenons" Width="200" Margin="30" FontSize="30"></Button>
+            <Button Command="{Binding switchToSpell}"  Content="Spells" Width="200" Margin="30" FontSize="30"></Button>
+            <Button Command="{Binding startGame}"  Content="Play ! " Width="200" Margin="30" FontSize="30"></Button>
+        </StackPanel>
+    </Grid>
+</UserControl>
