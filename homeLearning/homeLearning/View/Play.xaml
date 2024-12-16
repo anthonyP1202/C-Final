@@ -7,7 +7,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Border Background="Green">
+        <Border>
+            <Border.Background>
+                <ImageBrush ImageSource="/Images/pkmnBG.png"></ImageBrush>
+            </Border.Background>
         </Border>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
@@ -24,13 +27,13 @@
         <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="0,0,0,-26">
             <TextBlock Text="{Binding UserMonster.Name}" FontSize="30" Background="Wheat" Width="210" Margin="5"></TextBlock>
             <ProgressBar HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="282" Minimum="0" Maximum="{Binding UserMaxHealth}" Value="{Binding UserMonster.Health}"/>
-            <Image Source="C:\Users\perei\source\repos\homeLearning\homeLearning\other\nosepass_your.png" Width="127" Height="144"/>
+            <Image Source="{Binding Pathed}" Width="127" Height="144"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Right">
             <ProgressBar Margin="5" HorizontalAlignment="Left" Height="15" VerticalAlignment="Top" Width="282" Minimum="0" Maximum="{Binding EnnemyMaxHealth}" Value="{Binding EnnemyMonster.Health}"/>
-            <TextBlock Margin="2" FontSize="30" Text="{Binding EnnemyMonster.Health}"  Background="Wheat" Width="195"/>
             <TextBlock Margin="2" FontSize="30" Text="{Binding EnnemyMonster.Name}"  Background="Wheat" Width="195"/>
-            <Image Source="C:\Users\perei\source\repos\homeLearning\homeLearning\other\nosepass_ennemy.png" Width="159" Height="187"/>
+            <Image Source="{Binding Enpathed}" Width="159" Height="187"/>
+            <TextBlock Margin="2" FontSize="30" Text="{Binding EnnemyMonster.Health}"  Background="Wheat" Width="195"/>
         </StackPanel>
         <Button Command="{Binding RequestChangeViewCommand}" Content="Back" Width="100" Height="50" Margin="670,388,30,12" FontSize="30"></Button>
     </Grid>

@@ -33,6 +33,13 @@ namespace homeLearning.viewModel
             set => SetProperty(ref _path, value);
         }
 
+        private BitmapImage _enpath;
+        public BitmapImage Enpathed
+        {
+            get => _enpath;
+            set => SetProperty(ref _enpath, value);
+        }
+
         //other/{0}_your.png
 
         private int _userMaxHealth;
@@ -116,9 +123,11 @@ namespace homeLearning.viewModel
 
         private List<Spell> _ennemySpell;
 
-        public PlayVM(string MyDatabase, Login User, int score, int userMaxHealth, int ennemyMaxHealth, ExerciceMonsterContext exerciceContext, List<Monster> monsterList, Monster userMonster, Monster ennemyMonster, Spell spell1, Spell spell2, Spell spell3, Spell spell4, List<Spell> ennemySpell)
+        public PlayVM(string MyDatabase, Login User, BitmapImage path, BitmapImage enpath, int score, int userMaxHealth, int ennemyMaxHealth, ExerciceMonsterContext exerciceContext, List<Monster> monsterList, Monster userMonster, Monster ennemyMonster, Spell spell1, Spell spell2, Spell spell3, Spell spell4, List<Spell> ennemySpell)
         {
             _score = score;
+            _path = path;
+            _enpath = enpath;
             _database = MyDatabase;
             _user = User;
             _userMaxHealth = userMaxHealth;
@@ -157,6 +166,8 @@ namespace homeLearning.viewModel
                 _userMonster.Spells = placeholder.Spells;
                 _userMaxHealth = _userMonster.Health;
                 var placeholderspell = new List<Spell>(_userMonster.Spells.ToList());
+                _path = new BitmapImage(new Uri("\\Images\\" + placeholder.Name + "_your.png", UriKind.RelativeOrAbsolute));
+                
                 _spell1 = placeholderspell[0];
                 _spell2 = placeholderspell[1];
                 _spell3 = placeholderspell[2];
@@ -168,8 +179,7 @@ namespace homeLearning.viewModel
                 _userMonster.Health = placeholder.Health;
                 _userMonster.Spells = placeholder.Spells;
                 _userMaxHealth = _userMonster.Health;
-                _path = new BitmapImage(new Uri("other\\nosepass_your.png", UriKind.RelativeOrAbsolute));
-                
+                _path = new BitmapImage(new Uri("\\Images\\" + placeholder.Name + "_your.png", UriKind.RelativeOrAbsolute));
                 var placeholderspell = new List<Spell>(_userMonster.Spells.ToList());
                 _spell1 = placeholderspell[0];
                 _spell2 = placeholderspell[1];
@@ -190,6 +200,7 @@ namespace homeLearning.viewModel
             _ennemyMonster.Spells = _monsterList[num].Spells;
             _ennemyMaxHealth = _ennemyMonster.Health;
             _ennemySpell = new List<Spell>(_ennemyMonster.Spells.ToList());
+            _enpath = new BitmapImage(new Uri("\\Images\\" + _ennemyMonster.Name + "_ennemy.png", UriKind.RelativeOrAbsolute));
         }
 
         public void action(int attackDone)
@@ -214,7 +225,7 @@ namespace homeLearning.viewModel
             }
             else
             {
-                MainWindowVM.OnRequestVMChange?.Invoke(new PlayVM(_database, _user, _score, _userMaxHealth, _ennemyMaxHealth, _exerciceMonsterContext, _monsterList, _userMonster, _ennemyMonster, _spell1, _spell2, _spell3, _spell4, _ennemySpell));
+                MainWindowVM.OnRequestVMChange?.Invoke(new PlayVM(_database, _user, _path, _enpath, _score, _userMaxHealth, _ennemyMaxHealth, _exerciceMonsterContext, _monsterList, _userMonster, _ennemyMonster, _spell1, _spell2, _spell3, _spell4, _ennemySpell));
             }
         }
 

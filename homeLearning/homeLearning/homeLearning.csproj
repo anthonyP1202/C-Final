@@ -9,11 +9,35 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="other\nosepass_ennemy.png" />
+    <None Remove="Images\nosepass_ennemy.png" />
+    <None Remove="Images\nosepass_your.png" />
+    <None Remove="Images\pkmnBG.png" />
+    <None Remove="Images\porygon_ennemy.png" />
+    <None Remove="Images\porygon_your.png" />
+    <None Remove="Images\swinub_ennemy.png" />
+    <None Remove="Images\swinub_your.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="other\nosepass_ennemy.png">
+    <Content Include="Images\nosepass_ennemy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\nosepass_your.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\pkmnBG.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\porygon_ennemy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\porygon_your.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\swinub_ennemy.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\swinub_your.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
