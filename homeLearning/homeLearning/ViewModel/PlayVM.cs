@@ -19,6 +19,8 @@ namespace homeLearning.viewModel
 
         public ICommand StartAttack { get; set; }
 
+        public ICommand SkipEnnemy { get; set; }
+
         private int _score;
         public int Score
         {
@@ -143,6 +145,7 @@ namespace homeLearning.viewModel
             _ennemySpell = ennemySpell;
             RequestChangeViewCommand = new RelayCommand(HandleRequestChangeViewCommand);
             StartAttack = new RelayCommand<int>(action);
+            SkipEnnemy = new RelayCommand(skip);
         }
         public PlayVM(string MyDatabase, Login User)
         {
@@ -151,56 +154,58 @@ namespace homeLearning.viewModel
             _database = MyDatabase;
             _user = User;
             _monsterList = new List<Monster>(_exerciceMonsterContext.Monsters.Include(e=>e.Spells).ToList());
-            try {
-                _player = _exerciceMonsterContext.Players.Where(e => e.LoginId == User.Id).First();  
-                } 
-            catch (Exception ex) { 
-            MessageBox.Show(ex.Message);
-            }
-            
+            Monster placeholder;          
             try
             {
-                var placeholder = _exerciceMonsterContext.Monsters.Include(e=>e.Spells).First(e => e.Name == _player.Name);
-                _userMonster.Name = placeholder.Name;
-                _userMonster.Health = placeholder.Health;
-                _userMonster.Spells = placeholder.Spells;
-                _userMaxHealth = _userMonster.Health;
-                var placeholderspell = new List<Spell>(_userMonster.Spells.ToList());
-                _path = new BitmapImage(new Uri("\\Images\\" + placeholder.Name + "_your.png", UriKind.RelativeOrAbsolute));
-                
-                _spell1 = placeholderspell[0];
-                _spell2 = placeholderspell[1];
-                _spell3 = placeholderspell[2];
-                _spell4 = placeholderspell[3];
+                _player = _exerciceMonsterContext.Players.Where(e => e.LoginId == User.Id).First();
+                placeholder = _exerciceMonsterContext.Monsters.Include(e=>e.Spells).First(e => e.Name == _player.Name);
             } catch (Exception ex) {
-                var placeholder= _exerciceMonsterContext.Monsters.Include(e => e.Spells).First();
-                
-                _userMonster.Name = placeholder.Name;
-                _userMonster.Health = placeholder.Health;
-                _userMonster.Spells = placeholder.Spells;
-                _userMaxHealth = _userMonster.Health;
-                _path = new BitmapImage(new Uri("\\Images\\" + placeholder.Name + "_your.png", UriKind.RelativeOrAbsolute));
-                var placeholderspell = new List<Spell>(_userMonster.Spells.ToList());
-                _spell1 = placeholderspell[0];
-                _spell2 = placeholderspell[1];
-                _spell3 = placeholderspell[2];
-                _spell4 = placeholderspell[3];
+                MessageBox.Show("your starting pokemenon was not found we gave you a random one");
+                Random rnd = new Random();
+                int num = rnd.Next(0, _monsterList.Count);
+                placeholder = _monsterList[num];
             }
+            _userMonster.Name = placeholder.Name;
+            _userMonster.Health = placeholder.Health;
+            _userMonster.Spells = placeholder.Spells;
+            _userMaxHealth = _userMonster.Health;
+            _path = new BitmapImage(new Uri("\\Images\\" + placeholder.Name + "_your.png", UriKind.RelativeOrAbsolute));
+            var placeholderspell = new List<Spell>(_userMonster.Spells.ToList());
+            _spell1 = placeholderspell[0];
+            _spell2 = placeholderspell[1];
+            _spell3 = placeholderspell[2];
+            _spell4 = placeholderspell[3];
             pickNewEnnemy();
             RequestChangeViewCommand = new RelayCommand(HandleRequestChangeViewCommand);
             StartAttack = new RelayCommand<int>(action);
+            SkipEnnemy = new RelayCommand(skip);
         }
 
         public void pickNewEnnemy()
         {
             Random rnd = new Random();
-            int num = rnd.Next(0, _monsterList.Count); 
+            int num;
+            if (_score<40) { 
+            num = rnd.Next(0, _monsterList.Count);
+            }else
+            {
+                num = rnd.Next(1, _monsterList.Count);
+            }
             _ennemyMonster.Name = _monsterList[num].Name;
             _ennemyMonster.Health = (int)(_monsterList[num].Health * ((_score/100f)+1));
             _ennemyMonster.Spells = _monsterList[num].Spells;
             _ennemyMaxHealth = _ennemyMonster.Health;
             _ennemySpell = new List<Spell>(_ennemyMonster.Spells.ToList());
             _enpath = new BitmapImage(new Uri("\\Images\\" + _ennemyMonster.Name + "_ennemy.png", UriKind.RelativeOrAbsolute));
+        }
+        
+        public void skip()
+        {
+            pickNewEnnemy();
+            if (_userMonster.Health < (UserMaxHealth / 4) * 3){
+                _userMonster.Health = (UserMaxHealth / 4) * 3;
+            }
+            MainWindowVM.OnRequestVMChange?.Invoke(new PlayVM(_database, _user, _path, _enpath, _score, _userMaxHealth, _ennemyMaxHealth, _exerciceMonsterContext, _monsterList, _userMonster, _ennemyMonster, _spell1, _spell2, _spell3, _spell4, _ennemySpell));
         }
 
         public void action(int attackDone)

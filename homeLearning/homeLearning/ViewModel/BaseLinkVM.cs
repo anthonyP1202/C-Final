@@ -32,98 +32,110 @@ namespace homeLearning.viewModel
 
         public void HandleRequestChangeViewCommand()
         {
-            ChargeDB();
-            MainWindowVM.OnRequestVMChange?.Invoke(new MainViewVM(Mydatabase));
+            var dbloaded = ChargeDB();
+            if (dbloaded)
+            {
+                MainWindowVM.OnRequestVMChange?.Invoke(new MainViewVM(Mydatabase));
+            } else
+            {
+                MainWindowVM.OnRequestVMChange?.Invoke(new BaseLinkVM());
+            }
+            
         }
 
-        public void ChargeDB()
+        public bool ChargeDB()
         {
 
-            MessageBox.Show(_database);
-
             ExerciceMonsterContext _dataContext = new ExerciceMonsterContext(_database);
-         
-            var charged = new ObservableCollection<Monster>(_dataContext.Monsters.ToList());
-
-            if (charged.Any() == false)
+            ObservableCollection<Monster> charged;
+            try
             {
-
-                Spell tackle = new Spell
+                charged = new ObservableCollection<Monster>(_dataContext.Monsters.ToList());
+                if (charged.Any() == false)
                 {
-                    Name = "tackle",
-                    Damage = 20,
-                    Description = "charge at your opponent"
-                };
-                _dataContext.Spells.Add(tackle);
 
-                Spell bite = new Spell
-                {
-                    Name = "bite",
-                    Damage = 30,
-                    Description = "bite your opponent"
-                };
-                _dataContext.Spells.Add(bite);
+                    Spell tackle = new Spell
+                    {
+                        Name = "tackle",
+                        Damage = 20,
+                        Description = "charge at your opponent"
+                    };
+                    _dataContext.Spells.Add(tackle);
 
-                Spell rock_throw = new Spell
-                {
-                    Name = "rock throw",
-                    Damage = 30,
-                    Description = "throw a rock at your opponent"
-                };
-                _dataContext.Spells.Add(rock_throw);
+                    Spell bite = new Spell
+                    {
+                        Name = "bite",
+                        Damage = 30,
+                        Description = "bite your opponent"
+                    };
+                    _dataContext.Spells.Add(bite);
 
-                Spell ice_fang = new Spell
-                {
-                    Name = "ice fang",
-                    Damage = 35,
-                    Description = "bite at your opponent but your teeth are cold"
-                };
-                _dataContext.Spells.Add(ice_fang);
+                    Spell rock_throw = new Spell
+                    {
+                        Name = "rock throw",
+                        Damage = 30,
+                        Description = "throw a rock at your opponent"
+                    };
+                    _dataContext.Spells.Add(rock_throw);
 
-                Spell spark = new Spell
-                {
-                    Name = "spark",
-                    Damage = 30,
-                    Description = "throw electricity at your opponent"
-                };
-                _dataContext.Spells.Add(spark);
+                    Spell ice_fang = new Spell
+                    {
+                        Name = "ice fang",
+                        Damage = 35,
+                        Description = "bite at your opponent but your teeth are cold"
+                    };
+                    _dataContext.Spells.Add(ice_fang);
 
-                Spell slap = new Spell
-                {
-                    Name = "slap",
-                    Damage = 20,
-                    Description = "slap your opponent"
-                };
-                _dataContext.Spells.Add(slap);
+                    Spell spark = new Spell
+                    {
+                        Name = "spark",
+                        Damage = 30,
+                        Description = "throw electricity at your opponent"
+                    };
+                    _dataContext.Spells.Add(spark);
 
-                Monster nosepass = new Monster
-                {
-                    Health = 30,
-                    Name = "nosepass",
-                    Spells = new List<Spell> { tackle, rock_throw, spark, slap}
-                };
-                _dataContext.Monsters.Add(nosepass);
+                    Spell slap = new Spell
+                    {
+                        Name = "slap",
+                        Damage = 20,
+                        Description = "slap your opponent"
+                    };
+                    _dataContext.Spells.Add(slap);
 
-                Monster swinub = new Monster
-                {
-                    Health = 50,
-                    Name = "swinub",
-                    Spells = new List<Spell> { tackle, bite, ice_fang, slap }
-                };
-                _dataContext.Monsters.Add(swinub);
+                    Monster nosepass = new Monster
+                    {
+                        Health = 30,
+                        Name = "nosepass",
+                        Spells = new List<Spell> { tackle, rock_throw, spark, slap }
+                    };
+                    _dataContext.Monsters.Add(nosepass);
 
-                Monster porygon = new Monster
-                {
-                    Health = 65,
-                    Name = "porygon",
-                    Spells = new List<Spell> { tackle, spark, slap, rock_throw }
-                };
-                _dataContext.Monsters.Add(porygon);
-                _dataContext.SaveChanges();
-                MessageBox.Show("dbcharged");
+                    Monster swinub = new Monster
+                    {
+                        Health = 50,
+                        Name = "swinub",
+                        Spells = new List<Spell> { tackle, bite, ice_fang, slap }
+                    };
+                    _dataContext.Monsters.Add(swinub);
 
-                
+                    Monster porygon = new Monster
+                    {
+                        Health = 65,
+                        Name = "porygon",
+                        Spells = new List<Spell> { tackle, spark, slap, rock_throw }
+                    };
+                    _dataContext.Monsters.Add(porygon);
+                    _dataContext.SaveChanges();
+                    MessageBox.Show("dbcharged");
+                }
+                return true;
             }
+            catch
+            {
+                MessageBox.Show("error with the db");
+                return false;
+            }
+            return false;
         }
     }
 }

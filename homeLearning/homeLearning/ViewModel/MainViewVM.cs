@@ -61,7 +61,6 @@ namespace homeLearning.viewModel
                 ExerciceMonsterContext _dataContext = new ExerciceMonsterContext(_myDatabase);
                 Login matchingUser;
                 matchingUser = _dataContext.Logins.Where(x => x.Username == _username && x.PasswordHash == Passwordhash).Select(e => e).FirstOrDefault();
-                MessageBox.Show(Convert.ToString(matchingUser));
                 if (matchingUser == null)
                 {
                     MessageBox.Show("user not found");
@@ -104,7 +103,7 @@ namespace homeLearning.viewModel
                 StringBuilder builder = new StringBuilder();
                 foreach (var b in bytes)
                 {
-                    builder.Append(b.ToString("x2")); // Convert to hexadecimal
+                    builder.Append(b.ToString("x2"));
                 }
                 return builder.ToString();
             }

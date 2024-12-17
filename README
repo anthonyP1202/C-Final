@@ -65,4 +65,7 @@ create and connect to an account with a hashed password in the db
 - allow you to see details of the spell
 - allow you to see a list of pokemenon with a specific spell and pick it has a starter going to see the detail and then going back will remove the filter
 3) play allows you to play the game (the enemy health is to show that it increase with the score)
-it has a score and the option to use each spell however there is no balance whatsoever and doing any other move than the highest damage one is entirely pointless 
+- it has a score and the option to use each spell however there is no balance whatsoever and doing any other move than the highest damage one is entirely pointless
+- skip button that get a new pokemon but only heals a third of your pokemenon health
+- when score is above 40 nosepass can no longer be an ennemy (you killed them all)
+to reach that score we suggest choosing swinub and skiping ennemy until you find a nosepass or swinub and spam ice fang (such an amazing game balence)

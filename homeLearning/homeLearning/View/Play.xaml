@@ -35,6 +35,7 @@
             <Image Source="{Binding Enpathed}" Width="159" Height="187"/>
             <TextBlock Margin="2" FontSize="30" Text="{Binding EnnemyMonster.Health}"  Background="Wheat" Width="195"/>
         </StackPanel>
+        <Button Command="{Binding SkipEnnemy}" Content="Skip" Width="100" Height="50" Margin="670,322,30,78" FontSize="30"></Button>
         <Button Command="{Binding RequestChangeViewCommand}" Content="Back" Width="100" Height="50" Margin="670,388,30,12" FontSize="30"></Button>
     </Grid>
 </UserControl>
