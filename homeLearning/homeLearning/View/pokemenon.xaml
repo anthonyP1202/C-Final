@@ -10,17 +10,20 @@
         <Border Background="DarkRed"></Border>
         <StackPanel>
         <Button Command="{Binding RequestChangeViewComand}"  Content="Back" Width="100" Margin="50" FontSize="30"></Button>
-        <ListBox Background="DarkRed" BorderBrush="Transparent" ItemsSource="{Binding MonsterList}" Margin="10">
-            <!-- Define the template for how each Monster will be displayed -->
-            <ListBox.ItemTemplate>
+            <ListBox Background="DarkRed" BorderBrush="Transparent" ItemsSource="{Binding MonsterList}" Margin="10">
+                <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-
-                        <!-- Display monster properties -->
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5" />
-                        <Button Content="chose" Command="{Binding DataContext.SelectMonsterCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"></Button>
-                        <Button Content="detail" Command="{Binding DataContext.ViewDetail, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"></Button>
-                    </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400">
+                                    </ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Name}" Foreground="white" HorizontalAlignment="Left" FontWeight="Bold" Margin="5"/>
+                                <Button Content="chose" HorizontalAlignment="Center" Background="Green" Width="100" Command="{Binding DataContext.SelectMonsterCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"></Button>
+                                <Button Content="detail" HorizontalAlignment="Right" Background="Blue"  Width="100" Command="{Binding DataContext.ViewDetail, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"></Button>
+                            </Grid>
+                        </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

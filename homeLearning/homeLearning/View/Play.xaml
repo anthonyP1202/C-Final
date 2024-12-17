@@ -14,12 +14,12 @@
         </Border>
         <StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding StartAttack}" CommandParameter="{Binding Spell1.Damage}" Content="{Binding Spell1.Name}" Width="100" Margin="20" FontSize="30"></Button>
-                <Button Command="{Binding StartAttack}" CommandParameter="{Binding Spell2.Damage}"  Content="{Binding Spell2.Name}" Width="100" Margin="20" FontSize="30"></Button>
+                <Button Command="{Binding StartAttack}" CommandParameter="{Binding Spell1.Damage}" Content="{Binding Spell1.Name}" Width="145" Margin="20" FontSize="30"></Button>
+                <Button Command="{Binding StartAttack}" CommandParameter="{Binding Spell2.Damage}"  Content="{Binding Spell2.Name}" Width="145" Margin="20" FontSize="30"></Button>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <Button Command="{Binding StartAttack}" CommandParameter="{Binding Spell3.Damage}"  Content="{Binding Spell3.Name}" Width="100" Margin="20" FontSize="30"></Button>
-                <Button Command="{Binding StartAttack}" CommandParameter="{Binding Spell4.Damage}"  Content="{Binding Spell4.Name}" Width="100" Margin="20" FontSize="30"></Button>
+                <Button Command="{Binding StartAttack}" CommandParameter="{Binding Spell3.Damage}"  Content="{Binding Spell3.Name}" Width="145" Margin="20" FontSize="30"></Button>
+                <Button Command="{Binding StartAttack}" CommandParameter="{Binding Spell4.Damage}"  Content="{Binding Spell4.Name}" Width="145" Margin="20" FontSize="30"></Button>
             </StackPanel>
             <TextBlock Text="{Binding Score, StringFormat='Score: {0}'}" FontSize="40"></TextBlock>
         </StackPanel>
@@ -35,7 +35,9 @@
             <Image Source="{Binding Enpathed}" Width="159" Height="187"/>
             <TextBlock Margin="2" FontSize="30" Text="{Binding EnnemyMonster.Health}"  Background="Wheat" Width="195"/>
         </StackPanel>
-        <Button Command="{Binding SkipEnnemy}" Content="Skip" Width="100" Height="50" Margin="670,322,30,78" FontSize="30"></Button>
-        <Button Command="{Binding RequestChangeViewCommand}" Content="Back" Width="100" Height="50" Margin="670,388,30,12" FontSize="30"></Button>
+        <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="10">
+        <Button Command="{Binding SkipEnnemy}" Content="Skip" Width="70" Height="40" Margin="10" FontSize="20"></Button>
+        <Button Command="{Binding RequestChangeViewCommand}" Content="Back" Width="70" Height="40" FontSize="20"></Button>
+        </StackPanel>
     </Grid>
 </UserControl>

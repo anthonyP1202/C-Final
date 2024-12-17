@@ -14,13 +14,18 @@
             <!-- Define the template for how each Monster will be displayed -->
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-
-                        <!-- Display monster properties -->
-                        <TextBlock Text="{Binding Name}" FontWeight="Bold" Margin="5" />
-                        <Button Content="see users" Command="{Binding DataContext.ViewLinkedPokemenon, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"></Button>
-                        <Button Content="detail" Command="{Binding DataContext.ViewDetail, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"></Button>
-                    </StackPanel>
+                    
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="400">
+                                    </ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock HorizontalAlignment="Left" Width="100" Text="{Binding Name}" FontWeight="Bold" Margin="5" />
+                                <Button HorizontalAlignment="Center" Width="100" Content="see users" Background="Red" Command="{Binding DataContext.ViewLinkedPokemenon, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"></Button>
+                                <Button HorizontalAlignment="Right" Width="100" Content="detail" Background="Green" Command="{Binding DataContext.ViewDetail, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}"></Button>
+                            </Grid>
+                        </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
